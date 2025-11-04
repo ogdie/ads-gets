@@ -160,14 +160,6 @@ export default function Login() {
             <FaGoogle className="text-red-500 text-xl" />
             {t("login.googleLogin")}
           </button>
-
-          <button
-            onClick={handleFacebookLogin}
-            className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-          >
-            <FaFacebook className="text-blue-600 text-xl" />
-            {t("login.facebookLogin")}
-          </button>
         </div>
       </div>
     </div>
