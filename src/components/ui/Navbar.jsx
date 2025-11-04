@@ -17,7 +17,7 @@ export default function Navbar() {
           }`}
         >
           <FaHome className="text-xl md:text-lg mb-1 md:mb-0" />
-          <span className="text-xs md:text-sm">Home</span>
+          <span className="text-xs md:text-sm">Início</span>
         </Link>
         <Link
           href="/log"
@@ -26,7 +26,7 @@ export default function Navbar() {
           }`}
         >
           <FaHistory className="text-xl md:text-lg mb-1 md:mb-0" />
-          <span className="text-xs md:text-sm">Log</span>
+          <span className="text-xs md:text-sm">Histórico</span>
         </Link>
         <Link
           href="/support"
