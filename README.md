@@ -1,40 +1,157 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# ADS-GETS - Plataforma de Comparação de Anúncios
 
-## Getting Started
+Uma aplicação fullstack para comparar o retorno de anúncios em diferentes redes sociais (Facebook, Instagram e Google).
 
-First, run the development server:
+## 🚀 Tecnologias
 
+- **Frontend**: Next.js 16, React 19, Tailwind CSS 4
+- **Backend**: Express.js, Node.js
+- **Banco de Dados**: MongoDB (Mongoose)
+- **Autenticação**: JWT, Passport.js (Google OAuth, Facebook OAuth)
+- **Ícones**: React Icons
+
+## 📋 Pré-requisitos
+
+- Node.js 18+ instalado
+- MongoDB rodando (local ou Atlas)
+- Variáveis de ambiente configuradas
+
+## 🔧 Instalação
+
+1. Clone o repositório
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd ads-gets
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instale as dependências
+```bash
+npm install
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+3. Configure as variáveis de ambiente
+Crie um arquivo `.env` na raiz do projeto:
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```env
+MONGODB_URI=mongodb://localhost:27017/ads-gets
+JWT_SECRET=your-super-secret-jwt-key
+SESSION_SECRET=your-session-secret-key
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+FACEBOOK_APP_ID=your-facebook-app-id
+FACEBOOK_APP_SECRET=your-facebook-app-secret
+PORT=3000
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+4. Popule o banco de dados com dados de exemplo
+```bash
+npm run seed
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+5. Inicie o servidor
+```bash
+npm run dev
+```
 
-## Learn More
+A aplicação estará disponível em `http://localhost:3000`
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Estrutura do Projeto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+```
+ads-gets/
+├── src/
+│   ├── components/        # Componentes React
+│   │   ├── ui/           # Componentes de UI reutilizáveis
+│   │   ├── AdCard.jsx
+│   │   ├── AdModal.jsx
+│   │   └── CreateAdModal.jsx
+│   ├── context/          # Contextos React (Auth, Language)
+│   ├── pages/            # Páginas Next.js
+│   │   ├── index.js     # Login
+│   │   ├── home.js      # Dashboard
+│   │   ├── log.js       # Histórico
+│   │   └── support.js    # Suporte
+│   └── styles/           # Estilos globais
+├── routes/               # Rotas Express
+│   ├── authRoutes.js
+│   ├── adRoutes.js
+│   └── supportRoutes.js
+├── models/               # Modelos Mongoose
+│   ├── User.js
+│   ├── Ad.js
+│   └── FAQ.js
+├── data/                 # Dados de exemplo (JSON)
+│   ├── sample-ads.json
+│   └── sample-faqs.json
+├── scripts/              # Scripts utilitários
+│   └── seed-data.js
+└── server.js             # Servidor Express + Next.js
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎯 Funcionalidades
 
-## Deploy on Vercel
+### Autenticação
+- Login com email e senha
+- Login via OAuth (Google e Facebook)
+- Registro de novos usuários
+- Alteração de idioma (PT/EN)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Dashboard (Home)
+- Visualização de gastos totais
+- Balanço do dia
+- Gráfico comparativo por plataforma (Facebook, Instagram, Google)
+- Cards de anúncios com informações detalhadas
+- Criação, edição, duplicação e remoção de anúncios
+- Notificações sobre performance
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+### Histórico (Log)
+- Listagem de todos os anúncios
+- Filtros por data (dia, mês, ano)
+- Filtros por plataforma
+- Visualização de anúncios de anos anteriores
+
+### Suporte
+- Dúvidas frequentes pré-configuradas
+- Busca de dúvidas
+- Suporte multilíngue (PT/EN)
+
+## 📊 Dados de Exemplo
+
+O script `seed-data.js` cria:
+- 20 anúncios de exemplo para uma empresa de IT Recruiters
+- FAQs em português e inglês
+- Usuário de teste: `admin@techhr.com`
+
+## 🔐 Segurança
+
+- Senhas hashadas com bcrypt
+- JWT para autenticação
+- Validação de rotas protegidas
+- Sanitização de inputs
+
+## 📱 Mobile First
+
+A aplicação é desenvolvida com foco em mobile, com navbar fixa na parte inferior e design responsivo.
+
+## 🌐 Internacionalização
+
+Suporte completo para Português (PT) e Inglês (EN), com todas as traduções configuradas.
+
+## 📝 Notas
+
+- Os anúncios são armazenados no MongoDB (não via APIs reais das plataformas)
+- Isso permite testar a aplicação sem necessidade de contas reais de anúncios
+- Os dados podem ser populados via script `npm run seed`
+
+## 🐛 Troubleshooting
+
+Se encontrar problemas:
+
+1. Verifique se o MongoDB está rodando
+2. Confirme que todas as variáveis de ambiente estão configuradas
+3. Execute `npm run seed` para popular o banco
+4. Limpe o cache: `rm -rf .next node_modules && npm install`
+
+## 📄 Licença
+
+Este projeto é privado e destinado apenas para fins educacionais.

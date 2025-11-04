@@ -1,0 +1,185 @@
+[
+  {
+    "question": "Como posso criar um novo anúncio?",
+    "answer": "Para criar um novo anúncio, vá até a página Home (Dashboard) e clique no botão 'Criar Novo Anúncio' no canto superior direito. Preencha todos os campos obrigatórios como título, plataforma, público-alvo, gasto e orçamento. Você também pode adicionar métricas como leads, cliques e impressões.",
+    "category": "anuncios",
+    "language": "pt",
+    "isFrequent": true
+  },
+  {
+    "question": "How can I create a new ad?",
+    "answer": "To create a new ad, go to the Home (Dashboard) page and click the 'Create New Ad' button in the top right corner. Fill in all required fields such as title, platform, target audience, spent and budget. You can also add metrics like leads, clicks and impressions.",
+    "category": "anuncios",
+    "language": "en",
+    "isFrequent": true
+  },
+  {
+    "question": "Qual é a diferença entre público frio e quente?",
+    "answer": "Público frio (azul) são pessoas que ainda não conhecem sua marca ou produto e podem não estar procurando ativamente pelo que você oferece. Público quente (vermelho) são pessoas que já demonstraram interesse, visitaram seu site, interagiram com seu conteúdo ou já são clientes. Geralmente, anúncios para público quente têm melhor taxa de conversão, mas público frio é importante para expansão de marca.",
+    "category": "anuncios",
+    "language": "pt",
+    "isFrequent": true
+  },
+  {
+    "question": "What is the difference between cold and hot audience?",
+    "answer": "Cold audience (blue) are people who don't know your brand or product yet and may not be actively looking for what you offer. Hot audience (red) are people who have already shown interest, visited your website, interacted with your content or are already customers. Generally, ads for hot audiences have better conversion rates, but cold audiences are important for brand expansion.",
+    "category": "anuncios",
+    "language": "en",
+    "isFrequent": true
+  },
+  {
+    "question": "Como funciona o cálculo do custo por lead?",
+    "answer": "O custo por lead (CPL) é calculado automaticamente dividindo o valor gasto no anúncio pelo número de leads gerados. Por exemplo: se você gastou R$ 1000 e obteve 50 leads, o CPL será R$ 20,00. Esta métrica ajuda a avaliar a eficiência dos seus anúncios.",
+    "category": "anuncios",
+    "language": "pt",
+    "isFrequent": true
+  },
+  {
+    "question": "How is cost per lead calculated?",
+    "answer": "Cost per lead (CPL) is automatically calculated by dividing the amount spent on the ad by the number of leads generated. For example: if you spent $1000 and got 50 leads, the CPL will be $20.00. This metric helps evaluate the efficiency of your ads.",
+    "category": "anuncios",
+    "language": "en",
+    "isFrequent": true
+  },
+  {
+    "question": "Posso editar um anúncio depois de criado?",
+    "answer": "Sim! Você pode editar um anúncio clicando no card do anúncio na página Home. Isso abrirá um modal com todos os detalhes. Clique no botão 'Editar' e faça as alterações necessárias. Lembre-se de salvar as mudanças.",
+    "category": "anuncios",
+    "language": "pt",
+    "isFrequent": true
+  },
+  {
+    "question": "Can I edit an ad after creating it?",
+    "answer": "Yes! You can edit an ad by clicking on the ad card on the Home page. This will open a modal with all the details. Click the 'Edit' button and make the necessary changes. Remember to save the changes.",
+    "category": "anuncios",
+    "language": "en",
+    "isFrequent": true
+  },
+  {
+    "question": "Como filtrar anúncios por data na página Log?",
+    "answer": "Na página Log, você encontrará filtros no topo da página. Você pode filtrar por ano, mês, dia e também por plataforma (Facebook, Instagram ou Google). Selecione os filtros desejados e os anúncios serão atualizados automaticamente.",
+    "category": "geral",
+    "language": "pt",
+    "isFrequent": true
+  },
+  {
+    "question": "How to filter ads by date on the Log page?",
+    "answer": "On the Log page, you will find filters at the top of the page. You can filter by year, month, day and also by platform (Facebook, Instagram or Google). Select the desired filters and the ads will be updated automatically.",
+    "category": "geral",
+    "language": "en",
+    "isFrequent": true
+  },
+  {
+    "question": "O que significam as notificações no dashboard?",
+    "answer": "As notificações mostram informações importantes sobre seus anúncios, incluindo o balanço do dia (quanto foi gasto hoje) e o total gasto em todos os anúncios. Isso ajuda você a acompanhar seus gastos e performance em tempo real.",
+    "category": "geral",
+    "language": "pt",
+    "isFrequent": true
+  },
+  {
+    "question": "What do the dashboard notifications mean?",
+    "answer": "Notifications show important information about your ads, including today's balance (how much was spent today) and total spent on all ads. This helps you track your spending and performance in real time.",
+    "category": "geral",
+    "language": "en",
+    "isFrequent": true
+  },
+  {
+    "question": "Como posso duplicar um anúncio?",
+    "answer": "Para duplicar um anúncio, clique no ícone de três pontos (⋯) no card do anúncio e selecione 'Duplicar'. Uma cópia do anúncio será criada com o título '(Cópia)'. Você pode então editar esta cópia conforme necessário.",
+    "category": "anuncios",
+    "language": "pt",
+    "isFrequent": false
+  },
+  {
+    "question": "How can I duplicate an ad?",
+    "answer": "To duplicate an ad, click the three dots icon (⋯) on the ad card and select 'Duplicate'. A copy of the ad will be created with the title '(Copy)'. You can then edit this copy as needed.",
+    "category": "anuncios",
+    "language": "en",
+    "isFrequent": false
+  },
+  {
+    "question": "Quais plataformas são suportadas?",
+    "answer": "Atualmente, nossa plataforma suporta anúncios do Facebook, Instagram e Google. Cada plataforma tem suas próprias características e métricas. Você pode criar anúncios para qualquer uma dessas plataformas e comparar os resultados no dashboard.",
+    "category": "plataformas",
+    "language": "pt",
+    "isFrequent": true
+  },
+  {
+    "question": "Which platforms are supported?",
+    "answer": "Currently, our platform supports ads from Facebook, Instagram and Google. Each platform has its own characteristics and metrics. You can create ads for any of these platforms and compare results on the dashboard.",
+    "category": "plataformas",
+    "language": "en",
+    "isFrequent": true
+  },
+  {
+    "question": "Como alterar o idioma do aplicativo?",
+    "answer": "Você pode alterar o idioma (Português/English) usando o seletor de idioma no canto superior direito da página de login. O idioma selecionado será salvo e aplicado em todo o aplicativo.",
+    "category": "geral",
+    "language": "pt",
+    "isFrequent": false
+  },
+  {
+    "question": "How to change the application language?",
+    "answer": "You can change the language (Portuguese/English) using the language selector in the top right corner of the login page. The selected language will be saved and applied throughout the application.",
+    "category": "geral",
+    "language": "en",
+    "isFrequent": false
+  },
+  {
+    "question": "Como funciona o login via Google ou Facebook?",
+    "answer": "Você pode fazer login usando sua conta do Google ou Facebook clicando nos botões correspondentes na página de login. Isso permite acesso rápido sem precisar criar uma senha separada. Sua conta será vinculada à plataforma escolhida.",
+    "category": "geral",
+    "language": "pt",
+    "isFrequent": false
+  },
+  {
+    "question": "How does login via Google or Facebook work?",
+    "answer": "You can log in using your Google or Facebook account by clicking the corresponding buttons on the login page. This allows quick access without needing to create a separate password. Your account will be linked to the chosen platform.",
+    "category": "geral",
+    "language": "en",
+    "isFrequent": false
+  },
+  {
+    "question": "Posso ver anúncios de anos anteriores?",
+    "answer": "Sim! Na página Log, você pode usar o filtro de ano para selecionar anos anteriores e ver todos os anúncios criados naquele período. Combine com filtros de mês e dia para uma busca mais específica.",
+    "category": "geral",
+    "language": "pt",
+    "isFrequent": false
+  },
+  {
+    "question": "Can I see ads from previous years?",
+    "answer": "Yes! On the Log page, you can use the year filter to select previous years and see all ads created in that period. Combine with month and day filters for a more specific search.",
+    "category": "geral",
+    "language": "en",
+    "isFrequent": false
+  },
+  {
+    "question": "Como remover um anúncio?",
+    "answer": "Para remover um anúncio, clique no ícone de três pontos (⋯) no card do anúncio e selecione 'Remover'. Você será solicitado a confirmar a ação antes que o anúncio seja excluído permanentemente.",
+    "category": "anuncios",
+    "language": "pt",
+    "isFrequent": false
+  },
+  {
+    "question": "How to remove an ad?",
+    "answer": "To remove an ad, click the three dots icon (⋯) on the ad card and select 'Delete'. You will be asked to confirm the action before the ad is permanently deleted.",
+    "category": "anuncios",
+    "language": "en",
+    "isFrequent": false
+  },
+  {
+    "question": "O que é o gráfico de gastos por plataforma?",
+    "answer": "O gráfico no dashboard mostra uma comparação visual dos gastos entre Facebook, Instagram e Google. Cada plataforma é representada por uma barra colorida proporcional ao valor gasto. Isso ajuda a entender qual plataforma está recebendo mais investimento.",
+    "category": "geral",
+    "language": "pt",
+    "isFrequent": false
+  },
+  {
+    "question": "What is the spending by platform chart?",
+    "answer": "The dashboard chart shows a visual comparison of spending between Facebook, Instagram and Google. Each platform is represented by a colored bar proportional to the amount spent. This helps understand which platform is receiving more investment.",
+    "category": "geral",
+    "language": "en",
+    "isFrequent": false
+  }
+]
+
