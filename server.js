@@ -3,7 +3,11 @@ import next from "next";
 import dotenv from "dotenv";
 import cors from "cors";
 import session from "express-session";
+import passport from "passport";
 import { connectDB } from "./lib/mongodb.js";
+import authRoutes from "./routes/authRoutes.js";
+import adRoutes from "./routes/adRoutes.js";
+import supportRoutes from "./routes/supportRoutes.js";
 
 dotenv.config();
 
@@ -34,10 +38,17 @@ async function start() {
         secure: process.env.NODE_ENV === 'production',
         maxAge: 24 * 60 * 60 * 1000 // 24 hours
       }
-    }));    
+    }));
+
+    server.use(passport.initialize());
+    server.use(passport.session());
+
+    // API Routes
+    server.use('/api/auth', authRoutes);
+    server.use('/api/ads', adRoutes);
+    server.use('/api/support', supportRoutes);
 
     server.use((req, res) => {
-
       if (req.path.startsWith('/api')) {
         return res.status(404).json({ error: 'API route not found' });
       }

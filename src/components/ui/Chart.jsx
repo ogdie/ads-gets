@@ -1,0 +1,49 @@
+import { FaFacebook, FaInstagram, FaGoogle } from "react-icons/fa";
+
+export default function Chart({ platformStats, language = "pt" }) {
+  const platforms = [
+    { name: language === "pt" ? "Facebook" : "Facebook", icon: FaFacebook, color: "bg-blue-500", key: "Facebook" },
+    { name: language === "pt" ? "Instagram" : "Instagram", icon: FaInstagram, color: "bg-pink-500", key: "Instagram" },
+    { name: language === "pt" ? "Google" : "Google", icon: FaGoogle, color: "bg-green-500", key: "Google" }
+  ];
+
+  const maxSpent = Math.max(
+    ...platforms.map(p => platformStats?.[p.key]?.spent || 0)
+  );
+
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6">
+      <h3 className="text-lg font-semibold mb-4">
+        {language === "pt" ? "Gastos por Plataforma" : "Spending by Platform"}
+      </h3>
+      <div className="space-y-4">
+        {platforms.map((platform) => {
+          const Icon = platform.icon;
+          const spent = platformStats?.[platform.key]?.spent || 0;
+          const percentage = maxSpent > 0 ? (spent / maxSpent) * 100 : 0;
+
+          return (
+            <div key={platform.key} className="space-y-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Icon className={`${platform.color.replace("bg-", "text-")} text-xl`} />
+                  <span className="font-medium">{platform.name}</span>
+                </div>
+                <span className="font-semibold">
+                  €{spent.toFixed(2)}
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3">
+                <div
+                  className={`${platform.color} h-3 rounded-full transition-all duration-500`}
+                  style={{ width: `${percentage}%` }}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
