@@ -17,7 +17,7 @@ export default function Navbar() {
           }`}
         >
           <FaHome className="text-xl md:text-lg mb-1 md:mb-0" />
-          <span className="text-xs md:text-sm">Início</span>
+          <span className="text-xs md:text-sm">Inicio</span>
         </Link>
         <Link
           href="/log"
