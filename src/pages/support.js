@@ -126,8 +126,8 @@ export default function Support() {
                 ))}
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow-md p-12 text-center">
-                <p className="text-gray-500 text-lg">{t("support.noResults")}</p>
+              <div className="bg-[#1f6bbb] text-white rounded-lg shadow-md p-12 text-center">
+                <p className="text-white/90 text-lg">{t("support.noResults")}</p>
               </div>
             )}
           </div>
@@ -141,8 +141,8 @@ export default function Support() {
                 ))}
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow-md p-12 text-center">
-                <p className="text-gray-500 text-lg">
+              <div className="bg-[#1f6bbb] text-white rounded-lg shadow-md p-12 text-center">
+                <p className="text-white/90 text-lg">
                   {language === "pt" ? "Nenhuma dúvida frequente encontrada" : "No frequent questions found"}
                 </p>
               </div>
@@ -163,20 +163,19 @@ function FAQItem({ faq }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="bg-[#1f6bbb] text-white rounded-lg shadow-md overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+        className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-[#6aa8ff] transition-colors"
       >
         <span className="font-semibold text-lg">{faq.question}</span>
-        <span className="text-gray-500">{isOpen ? "−" : "+"}</span>
+        <span className="text-white/90">{isOpen ? "−" : "+"}</span>
       </button>
       {isOpen && (
-        <div className="px-6 py-4 border-t border-gray-200">
-          <p className="text-gray-700 whitespace-pre-line">{faq.answer}</p>
+        <div className="px-6 py-4 border-t border-white/30">
+          <p className="text-white/95 whitespace-pre-line">{faq.answer}</p>
         </div>
       )}
     </div>
   );
 }
-
