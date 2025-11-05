@@ -43,7 +43,7 @@ export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
             <>
               <div className="flex items-center gap-3 mb-4">
                 <Icon className={`text-2xl ${
-                  formData.platform === "Facebook" ? "text-blue-600" :
+                  formData.platform === "Facebook" ? "text-blue-500" :
                   formData.platform === "Instagram" ? "text-pink-600" :
                   "text-green-600"
                 }`} />
@@ -97,7 +97,7 @@ export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
               <div className="flex gap-3 pt-4">
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+                  className="flex-1 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-700"
                 >
                   {t("home.actions.edit")}
                 </button>
@@ -200,7 +200,7 @@ export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
               <div className="flex gap-3 pt-4">
                 <button
                   onClick={handleSave}
-                  className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+                  className="flex-1 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-700"
                 >
                   Salvar
                 </button>
