@@ -199,7 +199,7 @@ export default function CreateAdModal({ isOpen, onClose, onSave }) {
           <div className="flex gap-3 pt-4">
             <button
               type="submit"
-              className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+              className="flex-1 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-700"
             >
               Criar Anúncio
             </button>
