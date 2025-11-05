@@ -46,14 +46,14 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-indigo-200 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-sky-700 to-indigo-200 flex items-center justify-center p-4">
       <div className="absolute top-4 right-4">
         <div className="flex items-center gap-1 bg-white rounded-lg shadow-md p-1">
           <button
             onClick={() => changeLanguage("pt")}
             className={`px-3 py-1 rounded text-sm font-medium ${
               language === "pt"
-                ? "bg-blue-500 text-white"
+                ? "bg-sky-700 text-white"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
             title="Português"
@@ -64,7 +64,7 @@ export default function Login() {
             onClick={() => changeLanguage("en")}
             className={`px-3 py-1 rounded text-sm font-medium ${
               language === "en"
-                ? "bg-blue-500 text-white"
+                ? "bg-sky-700 text-white"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
             title="English"
@@ -132,7 +132,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-900 transition-colors disabled:opacity-50"
+            className="w-full bg-sky-700 text-white py-3 rounded-lg font-semibold hover:bg-sky-500 transition-colors disabled:opacity-50"
           >
             {loading
               ? language === "pt"
