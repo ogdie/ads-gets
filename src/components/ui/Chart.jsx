@@ -1,10 +1,12 @@
 import { FaFacebook, FaInstagram, FaGoogle } from "react-icons/fa";
+import { useLanguage } from "../../context/LanguageContext";
 
-export default function Chart({ platformStats, language = "pt" }) {
+export default function Chart({ platformStats }) {
+  const { t } = useLanguage();
   const platforms = [
-    { name: language === "pt" ? "Facebook" : "Facebook", icon: FaFacebook, color: "bg-blue-500", key: "Facebook" },
-    { name: language === "pt" ? "Instagram" : "Instagram", icon: FaInstagram, color: "bg-pink-500", key: "Instagram" },
-    { name: language === "pt" ? "Google" : "Google", icon: FaGoogle, color: "bg-green-500", key: "Google" }
+    { name: "Facebook", icon: FaFacebook, color: "bg-blue-500", key: "Facebook" },
+    { name: "Instagram", icon: FaInstagram, color: "bg-pink-500", key: "Instagram" },
+    { name: "Google", icon: FaGoogle, color: "bg-green-500", key: "Google" }
   ];
 
   const maxSpent = Math.max(
@@ -14,7 +16,7 @@ export default function Chart({ platformStats, language = "pt" }) {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <h3 className="text-lg font-semibold mb-4">
-        {language === "pt" ? "Gastos por Plataforma" : "Spending by Platform"}
+        {t("home.chart.spendingByPlatform")}
       </h3>
       <div className="space-y-4">
         {platforms.map((platform) => {

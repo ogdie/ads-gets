@@ -79,14 +79,14 @@ export default function Support() {
   const displayFAQs = searchQuery.trim() ? searchResults : frequentFAQs;
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-24 md:pb-0 md:pt-16 flex flex-col">
-      <div className="bg-white border-b border-gray-200 sticky top-0 md:top-16 z-40">
+    <div className="min-h-screen bg-slate-200 pb-24 md:pb-0 md:pt-16 flex flex-col">
+      <div className="bg-sky-600 border-b border-gray-200 sticky top-0 md:top-16 z-40">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-xl md:text-2xl font-bold">{t("support.title")}</h1>
+            <h1 className="text-xl md:text-2xl font-bold text-white">{t("support.title")}</h1>
             <button
               onClick={logout}
-              className="p-2 text-gray-600 hover:text-red-600 rounded-full hover:bg-gray-100 transition-colors"
+              className="p-2 text-white hover:text-red-600 rounded-full hover:bg-gray-100 transition-colors"
               title="Sair"
             >
               <FaSignOutAlt className="text-lg" />
@@ -94,8 +94,8 @@ export default function Support() {
           </div>
 
           {/* Search Bar */}
-          <div className="relative">
-            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <div className="relative text-white">
+            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white" />
             <input
               type="text"
               value={searchQuery}
@@ -126,8 +126,8 @@ export default function Support() {
                 ))}
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow-md p-12 text-center">
-                <p className="text-gray-500 text-lg">{t("support.noResults")}</p>
+              <div className="bg-[#1f6bbb] text-white rounded-lg shadow-md p-12 text-center">
+                <p className="text-white/90 text-lg">{t("support.noResults")}</p>
               </div>
             )}
           </div>
@@ -141,8 +141,8 @@ export default function Support() {
                 ))}
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow-md p-12 text-center">
-                <p className="text-gray-500 text-lg">
+              <div className="bg-[#1f6bbb] text-white rounded-lg shadow-md p-12 text-center">
+                <p className="text-white/90 text-lg">
                   {language === "pt" ? "Nenhuma dúvida frequente encontrada" : "No frequent questions found"}
                 </p>
               </div>
@@ -163,20 +163,19 @@ function FAQItem({ faq }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="bg-[#1f6bbb] text-white rounded-lg shadow-md overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+        className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-[#6aa8ff] transition-colors"
       >
         <span className="font-semibold text-lg">{faq.question}</span>
-        <span className="text-gray-500">{isOpen ? "−" : "+"}</span>
+        <span className="text-white/90">{isOpen ? "−" : "+"}</span>
       </button>
       {isOpen && (
-        <div className="px-6 py-4 border-t border-gray-200">
-          <p className="text-gray-700 whitespace-pre-line">{faq.answer}</p>
+        <div className="px-6 py-4 border-t border-white/30">
+          <p className="text-white/95 whitespace-pre-line">{faq.answer}</p>
         </div>
       )}
     </div>
   );
 }
-

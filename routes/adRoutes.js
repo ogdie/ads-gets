@@ -4,7 +4,6 @@ import Ad from "../models/Ad.js";
 
 const router = express.Router();
 
-// Middleware de autenticação
 const authenticate = (req, res, next) => {
   try {
     const token = req.headers.authorization?.replace("Bearer ", "");
@@ -19,7 +18,6 @@ const authenticate = (req, res, next) => {
   }
 };
 
-// Get all ads
 router.get("/", authenticate, async (req, res) => {
   try {
     const { platform, startDate, endDate, year, month, day } = req.query;
@@ -63,7 +61,6 @@ router.get("/", authenticate, async (req, res) => {
   }
 });
 
-// Get single ad
 router.get("/:id", authenticate, async (req, res) => {
   try {
     const ad = await Ad.findOne({ _id: req.params.id, userId: req.userId });
@@ -76,7 +73,6 @@ router.get("/:id", authenticate, async (req, res) => {
   }
 });
 
-// Create ad
 router.post("/", authenticate, async (req, res) => {
   try {
     const adData = {
@@ -90,7 +86,6 @@ router.post("/", authenticate, async (req, res) => {
   }
 });
 
-// Update ad
 router.put("/:id", authenticate, async (req, res) => {
   try {
     const ad = await Ad.findOneAndUpdate(
@@ -107,7 +102,6 @@ router.put("/:id", authenticate, async (req, res) => {
   }
 });
 
-// Delete ad
 router.delete("/:id", authenticate, async (req, res) => {
   try {
     const ad = await Ad.findOneAndDelete({ _id: req.params.id, userId: req.userId });
@@ -120,7 +114,6 @@ router.delete("/:id", authenticate, async (req, res) => {
   }
 });
 
-// Duplicate ad
 router.post("/:id/duplicate", authenticate, async (req, res) => {
   try {
     const originalAd = await Ad.findOne({ _id: req.params.id, userId: req.userId });
@@ -140,7 +133,6 @@ router.post("/:id/duplicate", authenticate, async (req, res) => {
   }
 });
 
-// Get dashboard stats
 router.get("/stats/dashboard", authenticate, async (req, res) => {
   try {
     const ads = await Ad.find({ userId: req.userId });
@@ -161,7 +153,6 @@ router.get("/stats/dashboard", authenticate, async (req, res) => {
       }
     });
 
-    // Today's balance
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const todayAds = ads.filter(ad => {
@@ -182,4 +173,3 @@ router.get("/stats/dashboard", authenticate, async (req, res) => {
 });
 
 export default router;
-

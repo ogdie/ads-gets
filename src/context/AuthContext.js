@@ -55,6 +55,25 @@ export function AuthProvider({ children }) {
         localStorage.setItem("token", data.token);
         setToken(data.token);
         setUser(data.user);
+        
+        const storedLang = localStorage.getItem("language");
+        if (storedLang && data.user.language !== storedLang) {  
+          setTimeout(async () => {
+            try {
+              await fetch("/api/auth/language", {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${data.token}`
+                },
+                body: JSON.stringify({ language: storedLang })
+              });
+            } catch (error) {
+              console.error("Error syncing language:", error);
+            }
+          }, 100);
+        }
+        
         router.push("/home");
         return { success: true };
       } else {
@@ -78,6 +97,25 @@ export function AuthProvider({ children }) {
         localStorage.setItem("token", data.token);
         setToken(data.token);
         setUser(data.user);
+             
+        const storedLang = localStorage.getItem("language");
+        if (storedLang && data.user.language !== storedLang) {  
+          setTimeout(async () => {
+            try {
+              await fetch("/api/auth/language", {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${data.token}`
+                },
+                body: JSON.stringify({ language: storedLang })
+              });
+            } catch (error) {
+              console.error("Error syncing language:", error);
+            }
+          }, 100);
+        }
+        
         router.push("/home");
         return { success: true };
       } else {
@@ -126,4 +164,3 @@ export function AuthProvider({ children }) {
 export function useAuth() {
   return useContext(AuthContext);
 }
-

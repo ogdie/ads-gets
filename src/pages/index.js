@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
+import Logo from "../components/Logo";
 
 export default function Login() {
   const router = useRouter();
@@ -45,19 +46,27 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-sky-700 to-indigo-200 flex items-center justify-center p-4">
       <div className="absolute top-4 right-4">
         <div className="flex items-center gap-1 bg-white rounded-lg shadow-md p-1">
           <button
             onClick={() => changeLanguage("pt")}
-            className={`px-3 py-1 rounded text-sm font-medium ${language === "pt" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+            className={`px-3 py-1 rounded text-sm font-medium ${
+              language === "pt"
+                ? "bg-sky-700 text-white"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }`}
             title="Português"
           >
             PT
           </button>
           <button
             onClick={() => changeLanguage("en")}
-            className={`px-3 py-1 rounded text-sm font-medium ${language === "en" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+            className={`px-3 py-1 rounded text-sm font-medium ${
+              language === "en"
+                ? "bg-sky-700 text-white"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }`}
             title="English"
           >
             EN
@@ -66,21 +75,7 @@ export default function Login() {
       </div>
 
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center mb-2">
-          {t("login.title")}
-        </h1>
-        <p className="text-center text-gray-600 mb-6">
-          {isRegister ? t("login.haveAccount") : t("login.noAccount")}
-          <button
-            onClick={() => {
-              setIsRegister(!isRegister);
-              setError("");
-            }}
-            className="text-blue-600 ml-1 hover:underline"
-          >
-            {isRegister ? t("login.loginButton") : t("login.register")}
-          </button>
-        </p>
+        <Logo />
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -136,10 +131,12 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50"
+            className="w-full bg-sky-700 text-white py-3 rounded-lg font-semibold hover:bg-sky-500 transition-colors disabled:opacity-50"
           >
             {loading
-              ? language === "pt" ? "Carregando..." : "Loading..."
+              ? language === "pt"
+                ? "Carregando..."
+                : "Loading..."
               : isRegister
               ? t("login.registerButton")
               : t("login.loginButton")}
@@ -159,14 +156,6 @@ export default function Login() {
           >
             <FaGoogle className="text-red-500 text-xl" />
             {t("login.googleLogin")}
-          </button>
-
-          <button
-            onClick={handleFacebookLogin}
-            className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-          >
-            <FaFacebook className="text-blue-600 text-xl" />
-            {t("login.facebookLogin")}
           </button>
         </div>
       </div>
