@@ -79,14 +79,14 @@ export default function Support() {
   const displayFAQs = searchQuery.trim() ? searchResults : frequentFAQs;
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-24 md:pb-0 md:pt-16 flex flex-col">
-      <div className="bg-white border-b border-gray-200 sticky top-0 md:top-16 z-40">
+    <div className="min-h-screen bg-slate-200 pb-24 md:pb-0 md:pt-16 flex flex-col">
+      <div className="bg-sky-600 border-b border-gray-200 sticky top-0 md:top-16 z-40">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-xl md:text-2xl font-bold">{t("support.title")}</h1>
+            <h1 className="text-xl md:text-2xl font-bold text-white">{t("support.title")}</h1>
             <button
               onClick={logout}
-              className="p-2 text-gray-600 hover:text-red-600 rounded-full hover:bg-gray-100 transition-colors"
+              className="p-2 text-white hover:text-red-600 rounded-full hover:bg-gray-100 transition-colors"
               title="Sair"
             >
               <FaSignOutAlt className="text-lg" />
@@ -94,8 +94,8 @@ export default function Support() {
           </div>
 
           {/* Search Bar */}
-          <div className="relative">
-            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <div className="relative text-white">
+            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white" />
             <input
               type="text"
               value={searchQuery}
