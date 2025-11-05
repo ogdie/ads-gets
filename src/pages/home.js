@@ -186,12 +186,12 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-24 md:pb-0 md:pt-16 flex flex-col">
-      <div className="bg-white border-b border-gray-200 sticky top-0 md:top-16 z-40">
+    <div className="min-h-screen bg-slate-200 pb-24 md:pb-0 md:pt-16 flex flex-col">
+      <div className="bg-sky-600 border-b border-gray-200 sticky top-0 md:top-16 z-40">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div>
-            <h1 className="text-xl md:text-2xl font-bold">{t("home.title")}</h1>
-            <p className="text-xs md:text-sm text-gray-600">
+            <h1 className="text-xl md:text-2xl font-bold text-white">{t("home.title")}</h1>
+            <p className="text-xs md:text-sm text-white">
               {user?.name || "Usuário"}
             </p>
           </div>
@@ -199,7 +199,7 @@ export default function Home() {
             <NotificationsPanel token={token} />
             <button
               onClick={logout}
-              className="p-2 text-gray-600 hover:text-red-600 rounded-full hover:bg-gray-100 transition-colors"
+              className="p-2 text-white hover:text-red-600 rounded-full hover:bg-gray-100 transition-colors"
               title="Sair"
             >
               <FaSignOutAlt className="text-lg" />
@@ -230,7 +230,7 @@ export default function Home() {
         <div className="flex justify-end">
           <button
             onClick={() => setIsCreateModalOpen(true)}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2 shadow-md"
+            className="bg-sky-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-sky-900 flex items-center gap-2 shadow-md"
           >
             <FaPlus />
             {t("home.createAd")}

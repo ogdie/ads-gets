@@ -8,12 +8,12 @@ export default function Navbar() {
   const isActive = (path) => router.pathname === path;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 md:bottom-auto md:top-0 bg-white border-t md:border-t-0 md:border-b border-gray-200 z-50">
+    <nav className="fixed bottom-0 left-0 right-0 md:bottom-auto md:top-0 bg-sky-600 border-t md:border-t-0 md:border-b border-gray-200 z-50">
       <div className="flex justify-around md:justify-start md:gap-8 md:px-8 items-center h-16">
         <Link
           href="/home"
           className={`flex flex-col md:flex-row md:gap-2 items-center justify-center flex-1 md:flex-none h-full px-4 ${
-            isActive("/home") ? "text-blue-600" : "text-gray-600"
+            isActive("/home") ? "text-pink-300" : "text-white"
           }`}
         >
           <FaHome className="text-xl md:text-lg mb-1 md:mb-0" />
@@ -22,7 +22,7 @@ export default function Navbar() {
         <Link
           href="/log"
           className={`flex flex-col md:flex-row md:gap-2 items-center justify-center flex-1 md:flex-none h-full px-4 ${
-            isActive("/log") ? "text-blue-600" : "text-gray-600"
+            isActive("/log") ? "text-pink-300" : "text-white"
           }`}
         >
           <FaHistory className="text-xl md:text-lg mb-1 md:mb-0" />
@@ -31,7 +31,7 @@ export default function Navbar() {
         <Link
           href="/support"
           className={`flex flex-col md:flex-row md:gap-2 items-center justify-center flex-1 md:flex-none h-full px-4 ${
-            isActive("/support") ? "text-blue-600" : "text-gray-600"
+            isActive("/support") ? "text-pink-300" : "text-white"
           }`}
         >
           <FaQuestionCircle className="text-xl md:text-lg mb-1 md:mb-0" />
