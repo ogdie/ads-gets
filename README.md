@@ -64,7 +64,10 @@ ads-gets/
 │   │   ├── ui/           # Componentes de UI reutilizáveis
 │   │   ├── AdCard.jsx
 │   │   ├── AdModal.jsx
-│   │   └── CreateAdModal.jsx
+│   │   ├── CreateAdModal.jsx
+│   │   ├── ShareModal.jsx
+│   │   ├── DeleteConfirmModal.jsx
+│   │   └── DuplicateModal.jsx
 │   ├── context/          # Contextos React (Auth, Language)
 │   ├── pages/            # Páginas Next.js
 │   │   ├── index.js     # Login
@@ -103,6 +106,7 @@ ads-gets/
 - Cards de anúncios com informações detalhadas
 - Criação, edição, duplicação e remoção de anúncios
 - Notificações sobre performance
+- Compartilhamento de anúncios em redes sociais
 
 ### Histórico (Log)
 - Listagem de todos os anúncios
@@ -114,6 +118,37 @@ ads-gets/
 - Dúvidas frequentes pré-configuradas
 - Busca de dúvidas
 - Suporte multilíngue (PT/EN)
+
+## 📡 API Endpoints
+
+### Total de Endpoints: **19**
+
+### 🔐 Autenticação (`/api/auth`) - **8 endpoints**
+- `POST /api/auth/register` - Registrar novo usuário
+- `POST /api/auth/login` - Login com email e senha
+- `GET /api/auth/google` - Iniciar autenticação OAuth Google
+- `GET /api/auth/google/callback` - Callback OAuth Google
+- `GET /api/auth/facebook` - Iniciar autenticação OAuth Facebook
+- `GET /api/auth/facebook/callback` - Callback OAuth Facebook
+- `PUT /api/auth/language` - Atualizar idioma do usuário
+- `GET /api/auth/me` - Obter dados do usuário atual
+
+### 📊 Anúncios (`/api/ads`) - **7 endpoints**
+- `GET /api/ads` - Listar todos os anúncios (com filtros: platform, year, month, day)
+- `GET /api/ads/:id` - Obter um anúncio específico
+- `POST /api/ads` - Criar novo anúncio
+- `PUT /api/ads/:id` - Atualizar anúncio
+- `DELETE /api/ads/:id` - Deletar anúncio
+- `POST /api/ads/:id/duplicate` - Duplicar anúncio
+- `GET /api/ads/stats/dashboard` - Obter estatísticas do dashboard
+
+### ❓ Suporte (`/api/support`) - **4 endpoints**
+- `GET /api/support/frequent` - Listar FAQs frequentes
+- `GET /api/support/search?q=termo` - Buscar FAQs por termo
+- `GET /api/support` - Listar todas as FAQs (com filtros: language, category)
+- `PUT /api/support/:id/views` - Incrementar visualizações de uma FAQ
+
+**Nota:** Todos os endpoints de anúncios requerem autenticação via JWT token no header `Authorization: Bearer <token>`.
 
 ## 📊 Dados de Exemplo
 

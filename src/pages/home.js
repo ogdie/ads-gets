@@ -8,6 +8,9 @@ import Chart from "../components/ui/Chart";
 import AdCard from "../components/AdCard";
 import AdModal from "../components/AdModal";
 import CreateAdModal from "../components/CreateAdModal";
+import DeleteConfirmModal from "../components/DeleteConfirmModal";
+import DuplicateModal from "../components/DuplicateModal";
+import ShareModal from "../components/ShareModal";
 import NotificationsPanel from "../components/ui/NotificationsPanel";
 import { FaPlus, FaSignOutAlt } from "react-icons/fa";
 
@@ -23,6 +26,12 @@ export default function Home() {
   const [selectedAd, setSelectedAd] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDuplicateModalOpen, setIsDuplicateModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [adToDelete, setAdToDelete] = useState(null);
+  const [adToDuplicate, setAdToDuplicate] = useState(null);
+  const [adToShare, setAdToShare] = useState(null);
 
   useEffect(() => {
     if (!authLoading && !token) {
@@ -39,7 +48,12 @@ export default function Home() {
 
   const fetchAds = async () => {
     try {
-      const response = await fetch("/api/ads", {
+      // Buscar apenas anúncios do dia 05/11/2025 para a dashboard
+      const day = "05";
+      const month = "11";
+      const year = 2025;
+      
+      const response = await fetch(`/api/ads?day=${day}&month=${month}&year=${year}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -119,11 +133,16 @@ export default function Home() {
     }
   };
 
-  const handleDeleteAd = async (ad) => {
-    if (!confirm(t("home.actions.delete") + " este anúncio?")) return;
+  const handleDeleteAd = (ad) => {
+    setAdToDelete(ad);
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDeleteAd = async () => {
+    if (!adToDelete) return;
 
     try {
-      const response = await fetch(`/api/ads/${ad._id}`, {
+      const response = await fetch(`/api/ads/${adToDelete._id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`
@@ -131,9 +150,11 @@ export default function Home() {
       });
 
       if (response.ok) {
-        setAds(ads.filter(a => a._id !== ad._id));
+        setAds(ads.filter(a => a._id !== adToDelete._id));
         setIsModalOpen(false);
         setSelectedAd(null);
+        setIsDeleteModalOpen(false);
+        setAdToDelete(null);
         fetchStats();
       }
     } catch (error) {
@@ -141,9 +162,16 @@ export default function Home() {
     }
   };
 
-  const handleDuplicateAd = async (ad) => {
+  const handleDuplicateAd = (ad) => {
+    setAdToDuplicate(ad);
+    setIsDuplicateModalOpen(true);
+  };
+
+  const confirmDuplicateAd = async () => {
+    if (!adToDuplicate) return;
+
     try {
-      const response = await fetch(`/api/ads/${ad._id}/duplicate`, {
+      const response = await fetch(`/api/ads/${adToDuplicate._id}/duplicate`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`
@@ -153,6 +181,8 @@ export default function Home() {
       if (response.ok) {
         const duplicatedAd = await response.json();
         setAds([duplicatedAd, ...ads]);
+        setIsDuplicateModalOpen(false);
+        setAdToDuplicate(null);
         fetchStats();
       }
     } catch (error) {
@@ -161,22 +191,14 @@ export default function Home() {
   };
 
   const handleShareAd = (ad) => {
-    const shareText = `${ad.title} - ${ad.platform}`;
-    if (navigator.share) {
-      navigator.share({
-        title: ad.title,
-        text: shareText
-      });
-    } else {
-      navigator.clipboard.writeText(shareText);
-      alert("Link copiado para área de transferência!");
-    }
+    setAdToShare(ad);
+    setIsShareModalOpen(true);
   };
 
   if (authLoading || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Carregando...</div>
+        <div className="text-xl">{t("home.loading")}</div>
       </div>
     );
   }
@@ -192,7 +214,7 @@ export default function Home() {
           <div>
             <h1 className="text-xl md:text-2xl font-bold text-white">{t("home.title")}</h1>
             <p className="text-xs md:text-sm text-white">
-              {user?.name || "Usuário"}
+              {user?.name || t("home.user")}
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -200,7 +222,7 @@ export default function Home() {
             <button
               onClick={logout}
               className="p-2 text-white hover:text-red-600 rounded-full hover:bg-gray-100 transition-colors"
-              title="Sair"
+              title={t("home.logout")}
             >
               <FaSignOutAlt className="text-lg" />
             </button>
@@ -223,7 +245,7 @@ export default function Home() {
 
         {/* Chart */}
         {platformStats && (
-          <Chart platformStats={platformStats} language={user?.language || "pt"} />
+          <Chart platformStats={platformStats} />
         )}
 
         {/* Create Ad Button */}
@@ -239,7 +261,7 @@ export default function Home() {
 
         {/* Ads Grid */}
         <div>
-          <h2 className="text-xl font-semibold mb-4">Anúncios</h2>
+          <h2 className="text-xl font-semibold mb-4">{t("home.ads")}</h2>
           {ads.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {ads.map((ad) => (
@@ -263,7 +285,7 @@ export default function Home() {
           ) : (
             <div className="bg-white rounded-lg shadow-md p-12 text-center">
               <p className="text-gray-500 text-lg">
-                {t("home.createAd")} para começar
+                {t("home.createAd")} {t("home.toStart")}
               </p>
             </div>
           )}
@@ -290,6 +312,35 @@ export default function Home() {
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
         onSave={handleCreateAd}
+      />
+
+      <DeleteConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setAdToDelete(null);
+        }}
+        onConfirm={confirmDeleteAd}
+        adTitle={adToDelete?.title || ""}
+      />
+
+      <DuplicateModal
+        isOpen={isDuplicateModalOpen}
+        onClose={() => {
+          setIsDuplicateModalOpen(false);
+          setAdToDuplicate(null);
+        }}
+        onConfirm={confirmDuplicateAd}
+        adTitle={adToDuplicate?.title || ""}
+      />
+
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => {
+          setIsShareModalOpen(false);
+          setAdToShare(null);
+        }}
+        ad={adToShare}
       />
     </div>
   );

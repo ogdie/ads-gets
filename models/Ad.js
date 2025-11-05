@@ -70,6 +70,10 @@ const adSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
+  descriptionEn: {
+    type: String,
+    default: ''
+  },
   targetAudience: {
     type: String,
     default: ''

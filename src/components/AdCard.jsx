@@ -9,7 +9,7 @@ const platformIcons = {
 };
 
 export default function AdCard({ ad, onEdit, onDelete, onDuplicate, onShare, onClick }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [showMenu, setShowMenu] = useState(false);
   const Icon = platformIcons[ad.platform] || FaFacebook;
   const isCold = ad.audience === "frio";
@@ -88,9 +88,20 @@ export default function AdCard({ ad, onEdit, onDelete, onDuplicate, onShare, onC
       </div>
 
       <div className="space-y-2">
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <span className="text-gray-600">{t("home.ad.spent")}:</span>
-          <span className="font-semibold">€{ad.spent.toFixed(2)}</span>
+          <div className="flex items-center gap-2">
+            <span className="font-semibold">€{ad.spent.toFixed(2)}</span>
+            <span className={`px-2 py-1 rounded text-xs font-semibold ${
+              ad.status === "ativo" 
+                ? "bg-green-100 text-green-700" 
+                : ad.status === "pausado"
+                ? "bg-yellow-100 text-yellow-700"
+                : "bg-gray-100 text-gray-700"
+            }`}>
+              {ad.status === "ativo" ? t("home.ad.status.active") : ad.status === "pausado" ? t("home.ad.status.paused") : t("home.ad.status.finished")}
+            </span>
+          </div>
         </div>
         <div className="flex justify-between">
           <span className="text-gray-600">{t("home.ad.leads")}:</span>
@@ -107,7 +118,16 @@ export default function AdCard({ ad, onEdit, onDelete, onDuplicate, onShare, onC
               {isCold ? t("home.audience.cold") : t("home.audience.hot")}
             </span>
           </div>
-          <span className="text-xs text-gray-500">{ad.platform}</span>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-400">
+              {ad.startDate ? new Date(ad.startDate).toLocaleDateString(language === "pt" ? 'pt-BR' : 'en-US', { 
+                day: '2-digit', 
+                month: '2-digit', 
+                year: 'numeric' 
+              }) : ''}
+            </span>
+            <span className="text-xs text-gray-500">{ad.platform}</span>
+          </div>
         </div>
       </div>
     </div>

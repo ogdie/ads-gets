@@ -9,13 +9,15 @@ const platformIcons = {
 };
 
 export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState(ad || {});
   const [isEditing, setIsEditing] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   useEffect(() => {
     setFormData(ad || {});
     setIsEditing(false);
+    setShowDeleteConfirm(false);
   }, [ad, isOpen]);
 
   if (!isOpen) return null;
@@ -28,17 +30,75 @@ export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
     setIsEditing(false);
   };
 
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-          <h2 className="text-2xl font-bold">{formData.title || "Detalhes do Anúncio"}</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-            <FaTimes className="text-xl" />
-          </button>
-        </div>
+  const handleDeleteConfirm = () => {
+    if (onDelete) {
+      onDelete(formData);
+      setShowDeleteConfirm(false);
+      onClose();
+    }
+  };
 
-        <div className="p-6 space-y-4">
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setFormData(ad || {});
+  };
+
+  return (
+    <>
+      {/* Modal de confirmação de exclusão */}
+      {showDeleteConfirm && (
+        <div 
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
+          onClick={() => setShowDeleteConfirm(false)}
+        >
+          <div 
+            className="bg-white rounded-2xl max-w-md w-full shadow-2xl border-4 border-red-500 p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-xl font-bold text-gray-800 mb-2">{t("home.modal.confirmDelete")}</h3>
+            <p className="text-gray-600 mb-6">
+              {t("home.modal.confirmDeleteMessage")} <strong>"{formData.title}"</strong>? {t("home.modal.confirmDeleteWarning")}
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={handleDeleteConfirm}
+                className="flex-1 bg-red-600 text-white py-2.5 rounded-xl font-semibold hover:bg-red-700 transition-colors shadow-md"
+              >
+                {t("home.modal.yesDelete")}
+              </button>
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                className="flex-1 bg-gray-200 text-gray-700 py-2.5 rounded-xl font-semibold hover:bg-gray-300 transition-colors"
+              >
+                {t("home.modal.cancel")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal principal */}
+      <div 
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        onClick={onClose}
+      >
+        <div 
+          className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl border-4 border-sky-600 flex flex-col"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="sticky top-0 bg-gradient-to-r from-sky-600 to-sky-700 px-6 py-4 flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-white">
+              {isEditing ? t("home.modal.editAd") : (formData.title || t("home.modal.adDetails"))}
+            </h2>
+            <button 
+              onClick={onClose} 
+              className="text-white hover:text-gray-200 hover:bg-white/20 rounded-full p-2 transition-colors"
+            >
+              <FaTimes className="text-xl" />
+            </button>
+          </div>
+
+        <div className="p-6 space-y-4 overflow-y-auto flex-1 bg-gray-50">
           {!isEditing ? (
             <>
               <div className="flex items-center gap-3 mb-4">
@@ -64,21 +124,21 @@ export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
                   <p className="font-semibold text-lg">€{formData.costPerLead?.toFixed(2) || "0.00"}</p>
                 </div>
                 <div>
-                  <label className="text-sm text-gray-600">Cliques</label>
+                  <label className="text-sm text-gray-600">{t("home.ad.clicks")}</label>
                   <p className="font-semibold text-lg">{formData.clicks || 0}</p>
                 </div>
                 <div>
-                  <label className="text-sm text-gray-600">Impressões</label>
+                  <label className="text-sm text-gray-600">{t("home.ad.impressions")}</label>
                   <p className="font-semibold text-lg">{formData.impressions || 0}</p>
                 </div>
                 <div>
-                  <label className="text-sm text-gray-600">Alcance</label>
+                  <label className="text-sm text-gray-600">{t("home.ad.reach")}</label>
                   <p className="font-semibold text-lg">{formData.reach || 0}</p>
                 </div>
               </div>
 
               <div className="pt-4 border-t">
-                <label className="text-sm text-gray-600">Público</label>
+                <label className="text-sm text-gray-600">{t("home.audience.label")}</label>
                 <div className="flex items-center gap-2 mt-1">
                   <div className={`w-4 h-4 rounded-full ${isCold ? "bg-blue-500" : "bg-red-500"}`} />
                   <span className="font-medium">
@@ -87,24 +147,37 @@ export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
                 </div>
               </div>
 
-              {formData.description && (
+              {(formData.description || formData.descriptionEn) && (
                 <div className="pt-4 border-t">
-                  <label className="text-sm text-gray-600">Descrição</label>
-                  <p className="mt-1">{formData.description}</p>
+                  <label className="text-sm text-gray-600">{t("home.ad.description")}</label>
+                  <p className="mt-1">
+                    {(() => {
+                      // Se idioma é inglês e existe descriptionEn (não vazio), usar descriptionEn
+                      if (language === "en" && formData.descriptionEn && formData.descriptionEn.trim() !== "") {
+                        return formData.descriptionEn;
+                      }
+                      // Se idioma é português ou descriptionEn não existe/vazio, usar description
+                      if (formData.description && formData.description.trim() !== "") {
+                        return formData.description;
+                      }
+                      // Fallback para descriptionEn se description não existir
+                      return formData.descriptionEn || "";
+                    })()}
+                  </p>
                 </div>
               )}
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-3 pt-4 border-t border-gray-200">
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="flex-1 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-700"
+                  className="flex-1 bg-sky-600 text-white py-3 rounded-xl font-semibold hover:bg-sky-700 transition-colors shadow-md hover:shadow-lg"
                 >
                   {t("home.actions.edit")}
                 </button>
                 {onDelete && (
                   <button
-                    onClick={() => onDelete(formData)}
-                    className="flex-1 bg-red-600 text-white py-2 rounded-lg hover:bg-red-700"
+                    onClick={() => setShowDeleteConfirm(true)}
+                    className="flex-1 bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition-colors shadow-md hover:shadow-lg"
                   >
                     {t("home.actions.delete")}
                   </button>
@@ -114,21 +187,21 @@ export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
           ) : (
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Título</label>
+                <label className="block text-sm font-medium mb-1">{t("home.ad.title")}</label>
                 <input
                   type="text"
                   value={formData.title || ""}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Plataforma</label>
+                <label className="block text-sm font-medium mb-1">{t("home.ad.platform")}</label>
                 <select
                   value={formData.platform || ""}
                   onChange={(e) => setFormData({ ...formData, platform: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                 >
                   <option value="Facebook">Facebook</option>
                   <option value="Instagram">Instagram</option>
@@ -137,11 +210,11 @@ export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Público</label>
+                <label className="block text-sm font-medium mb-1">{t("home.audience.label")}</label>
                 <select
                   value={formData.audience || ""}
                   onChange={(e) => setFormData({ ...formData, audience: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                 >
                   <option value="frio">{t("home.audience.cold")}</option>
                   <option value="quente">{t("home.audience.hot")}</option>
@@ -150,68 +223,74 @@ export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Gasto (€)</label>
+                  <label className="block text-sm font-medium mb-1">{t("home.ad.spent")} (€)</label>
                   <input
                     type="number"
                     value={formData.spent || 0}
                     onChange={(e) => setFormData({ ...formData, spent: parseFloat(e.target.value) })}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                    className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Orçamento (€)</label>
+                  <label className="block text-sm font-medium mb-1">{t("home.ad.budget")} (€)</label>
                   <input
                     type="number"
                     value={formData.budget || 0}
                     onChange={(e) => setFormData({ ...formData, budget: parseFloat(e.target.value) })}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                    className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Leads</label>
+                  <label className="block text-sm font-medium mb-1">{t("home.ad.leads")}</label>
                   <input
                     type="number"
                     value={formData.leads || 0}
                     onChange={(e) => setFormData({ ...formData, leads: parseInt(e.target.value) })}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                    className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Cliques</label>
+                  <label className="block text-sm font-medium mb-1">{t("home.ad.clicks")}</label>
                   <input
                     type="number"
                     value={formData.clicks || 0}
                     onChange={(e) => setFormData({ ...formData, clicks: parseInt(e.target.value) })}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                    className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Descrição</label>
+                <label className="block text-sm font-medium mb-1">{t("home.ad.description")} ({language === "pt" ? "PT" : "EN"})</label>
                 <textarea
-                  value={formData.description || ""}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  value={language === "en" && formData.descriptionEn !== undefined
+                    ? formData.descriptionEn || "" 
+                    : formData.description || ""}
+                  onChange={(e) => {
+                    if (language === "en") {
+                      setFormData({ ...formData, descriptionEn: e.target.value });
+                    } else {
+                      setFormData({ ...formData, description: e.target.value });
+                    }
+                  }}
+                  className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all resize-none"
                   rows="3"
+                  placeholder={language === "pt" ? "Descrição do anúncio" : "Ad description"}
                 />
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-3 pt-4 border-t border-gray-200">
                 <button
                   onClick={handleSave}
-                  className="flex-1 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-700"
+                  className="flex-1 bg-sky-600 text-white py-3 rounded-xl font-semibold hover:bg-sky-700 transition-colors shadow-md hover:shadow-lg"
                 >
-                  Salvar
+                  {t("home.modal.save")}
                 </button>
                 <button
-                  onClick={() => {
-                    setIsEditing(false);
-                    setFormData(ad);
-                  }}
-                  className="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400"
+                  onClick={handleCancelEdit}
+                  className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-colors"
                 >
-                  Cancelar
+                  {t("home.modal.cancel")}
                 </button>
               </div>
             </div>
@@ -219,6 +298,7 @@ export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

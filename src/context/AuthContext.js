@@ -55,6 +55,27 @@ export function AuthProvider({ children }) {
         localStorage.setItem("token", data.token);
         setToken(data.token);
         setUser(data.user);
+        
+        // Sincronizar idioma do localStorage com o usuário após login
+        const storedLang = localStorage.getItem("language");
+        if (storedLang && data.user.language !== storedLang) {
+          // Atualizar no servidor após um pequeno delay para garantir que o token está setado
+          setTimeout(async () => {
+            try {
+              await fetch("/api/auth/language", {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${data.token}`
+                },
+                body: JSON.stringify({ language: storedLang })
+              });
+            } catch (error) {
+              console.error("Error syncing language:", error);
+            }
+          }, 100);
+        }
+        
         router.push("/home");
         return { success: true };
       } else {
@@ -78,6 +99,27 @@ export function AuthProvider({ children }) {
         localStorage.setItem("token", data.token);
         setToken(data.token);
         setUser(data.user);
+        
+        // Sincronizar idioma do localStorage com o usuário após registro
+        const storedLang = localStorage.getItem("language");
+        if (storedLang && data.user.language !== storedLang) {
+          // Atualizar no servidor após um pequeno delay para garantir que o token está setado
+          setTimeout(async () => {
+            try {
+              await fetch("/api/auth/language", {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${data.token}`
+                },
+                body: JSON.stringify({ language: storedLang })
+              });
+            } catch (error) {
+              console.error("Error syncing language:", error);
+            }
+          }, 100);
+        }
+        
         router.push("/home");
         return { success: true };
       } else {
