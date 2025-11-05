@@ -152,15 +152,12 @@ export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
                   <label className="text-sm text-gray-600">{t("home.ad.description")}</label>
                   <p className="mt-1">
                     {(() => {
-                      // Se idioma é inglês e existe descriptionEn (não vazio), usar descriptionEn
                       if (language === "en" && formData.descriptionEn && formData.descriptionEn.trim() !== "") {
                         return formData.descriptionEn;
                       }
-                      // Se idioma é português ou descriptionEn não existe/vazio, usar description
                       if (formData.description && formData.description.trim() !== "") {
                         return formData.description;
                       }
-                      // Fallback para descriptionEn se description não existir
                       return formData.descriptionEn || "";
                     })()}
                   </p>
@@ -301,4 +298,3 @@ export default function AdModal({ ad, isOpen, onClose, onSave, onDelete }) {
     </>
   );
 }
-

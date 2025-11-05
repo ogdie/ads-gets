@@ -56,10 +56,8 @@ export function AuthProvider({ children }) {
         setToken(data.token);
         setUser(data.user);
         
-        // Sincronizar idioma do localStorage com o usuário após login
         const storedLang = localStorage.getItem("language");
-        if (storedLang && data.user.language !== storedLang) {
-          // Atualizar no servidor após um pequeno delay para garantir que o token está setado
+        if (storedLang && data.user.language !== storedLang) {  
           setTimeout(async () => {
             try {
               await fetch("/api/auth/language", {
@@ -99,11 +97,9 @@ export function AuthProvider({ children }) {
         localStorage.setItem("token", data.token);
         setToken(data.token);
         setUser(data.user);
-        
-        // Sincronizar idioma do localStorage com o usuário após registro
+             
         const storedLang = localStorage.getItem("language");
-        if (storedLang && data.user.language !== storedLang) {
-          // Atualizar no servidor após um pequeno delay para garantir que o token está setado
+        if (storedLang && data.user.language !== storedLang) {  
           setTimeout(async () => {
             try {
               await fetch("/api/auth/language", {
@@ -168,4 +164,3 @@ export function AuthProvider({ children }) {
 export function useAuth() {
   return useContext(AuthContext);
 }
-

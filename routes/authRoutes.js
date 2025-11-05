@@ -8,7 +8,6 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
-// Google OAuth Strategy
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID || "your-google-client-id",
   clientSecret: process.env.GOOGLE_CLIENT_SECRET || "your-google-client-secret",
@@ -39,7 +38,6 @@ passport.use(new GoogleStrategy({
   }
 }));
 
-// Facebook OAuth Strategy
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID || "your-facebook-app-id",
   clientSecret: process.env.FACEBOOK_APP_SECRET || "your-facebook-app-secret",
@@ -83,7 +81,6 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-// Register
 router.post("/register", async (req, res) => {
   try {
     const { email, password, name } = req.body;
@@ -114,7 +111,6 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// Login
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -147,7 +143,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Google OAuth
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 router.get("/google/callback", passport.authenticate("google", { session: false }), (req, res) => {
   const token = jwt.sign({ userId: req.user._id }, process.env.JWT_SECRET || "your-secret-key", {
@@ -156,7 +151,6 @@ router.get("/google/callback", passport.authenticate("google", { session: false 
   res.redirect(`/home?token=${token}`);
 });
 
-// Facebook OAuth
 router.get("/facebook", passport.authenticate("facebook", { scope: ["email"] }));
 router.get("/facebook/callback", passport.authenticate("facebook", { session: false }), (req, res) => {
   const token = jwt.sign({ userId: req.user._id }, process.env.JWT_SECRET || "your-secret-key", {
@@ -165,7 +159,6 @@ router.get("/facebook/callback", passport.authenticate("facebook", { session: fa
   res.redirect(`/home?token=${token}`);
 });
 
-// Update language
 router.put("/language", async (req, res) => {
   try {
     const token = req.headers.authorization?.replace("Bearer ", "");
@@ -183,7 +176,6 @@ router.put("/language", async (req, res) => {
   }
 });
 
-// Get current user
 router.get("/me", async (req, res) => {
   try {
     const token = req.headers.authorization?.replace("Bearer ", "");
@@ -205,4 +197,3 @@ router.get("/me", async (req, res) => {
 });
 
 export default router;
-

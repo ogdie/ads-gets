@@ -3,7 +3,6 @@ import FAQ from "../models/FAQ.js";
 
 const router = express.Router();
 
-// Get frequent FAQs
 router.get("/frequent", async (req, res) => {
   try {
     const { language = 'pt' } = req.query;
@@ -16,7 +15,6 @@ router.get("/frequent", async (req, res) => {
   }
 });
 
-// Search FAQs
 router.get("/search", async (req, res) => {
   try {
     const { q, language = 'pt' } = req.query;
@@ -40,7 +38,6 @@ router.get("/search", async (req, res) => {
   }
 });
 
-// Get all FAQs
 router.get("/", async (req, res) => {
   try {
     const { language = 'pt', category } = req.query;
@@ -55,7 +52,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Increment FAQ views
 router.put("/:id/views", async (req, res) => {
   try {
     const faq = await FAQ.findByIdAndUpdate(
@@ -73,4 +69,3 @@ router.put("/:id/views", async (req, res) => {
 });
 
 export default router;
-

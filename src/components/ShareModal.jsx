@@ -47,7 +47,6 @@ export default function ShareModal({ isOpen, onClose, ad }) {
   };
 
   const shareToInstagram = () => {
-    // Instagram não permite compartilhamento direto via URL, então copia o link
     handleCopy();
   };
 

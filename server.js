@@ -36,14 +36,13 @@ async function start() {
       saveUninitialized: false,
       cookie: {
         secure: process.env.NODE_ENV === 'production',
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+        maxAge: 24 * 60 * 60 * 1000
       }
     }));
 
     server.use(passport.initialize());
     server.use(passport.session());
 
-    // API Routes
     server.use('/api/auth', authRoutes);
     server.use('/api/ads', adRoutes);
     server.use('/api/support', supportRoutes);

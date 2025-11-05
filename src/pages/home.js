@@ -48,7 +48,6 @@ export default function Home() {
 
   const fetchAds = async () => {
     try {
-      // Buscar apenas anúncios do dia 05/11/2025 para a dashboard
       const day = "05";
       const month = "11";
       const year = 2025;
@@ -231,7 +230,7 @@ export default function Home() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-6 space-y-6 flex-1">
-        {/* Stats */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-white rounded-lg shadow-md p-6">
             <h3 className="text-sm text-gray-600 mb-1">{t("home.totalSpent")}</h3>
@@ -243,12 +242,12 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Chart */}
+        {}
         {platformStats && (
           <Chart platformStats={platformStats} />
         )}
 
-        {/* Create Ad Button */}
+        {}
         <div className="flex justify-end">
           <button
             onClick={() => setIsCreateModalOpen(true)}
@@ -259,7 +258,7 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Ads Grid */}
+        {}
         <div>
           <h2 className="text-xl font-semibold mb-4">{t("home.ads")}</h2>
           {ads.length > 0 ? (

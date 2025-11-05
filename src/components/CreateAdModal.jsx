@@ -25,7 +25,6 @@ export default function CreateAdModal({ isOpen, onClose, onSave }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Garantir que valores vazios sejam convertidos para 0
     const spent = formData.spent === "" || formData.spent === null ? 0 : formData.spent;
     const budget = formData.budget === "" || formData.budget === null ? 0 : formData.budget;
     

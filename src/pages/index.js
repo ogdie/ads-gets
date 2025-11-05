@@ -75,7 +75,6 @@ export default function Login() {
       </div>
 
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
-        {/* LOGO CENTRALIZADO */}
         <Logo />
 
         {error && (

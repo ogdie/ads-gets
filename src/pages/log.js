@@ -163,7 +163,6 @@ export default function Log() {
     label: (currentYear - i).toString()
   }));
   
-  // Criar array de meses com nomes traduzidos
   const months = [
     { value: "01", label: t("log.months.01") },
     { value: "02", label: t("log.months.02") },
@@ -217,7 +216,7 @@ export default function Log() {
             </button>
           </div>
 
-          {/* Filters */}
+          {}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium mb-2 text-white">{t("log.year")}</label>

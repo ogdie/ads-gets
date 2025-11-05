@@ -248,10 +248,8 @@ export function LanguageProvider({ children }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Marcar como montado no cliente
     setMounted(true);
     
-    // Carregar idioma do localStorage primeiro
     if (typeof window !== "undefined") {
       const storedLang = localStorage.getItem("language");
       if (storedLang) {
@@ -260,17 +258,14 @@ export function LanguageProvider({ children }) {
     }
   }, []);
 
-  // Sincronizar com usuário quando disponível
   useEffect(() => {
     if (mounted && typeof window !== "undefined") {
       const storedLang = localStorage.getItem("language");
       
-      if (user && token && user.language) {
-        // Se há idioma do usuário e é diferente do localStorage, sincronizar
+      if (user && token && user.language) {        
         if (storedLang && user.language !== storedLang && updateLanguage) {
           updateLanguage(storedLang);
         } else if (!storedLang) {
-          // Se não há localStorage, usar o idioma do usuário
           setLanguage(user.language);
           localStorage.setItem("language", user.language);
         }
@@ -281,7 +276,6 @@ export function LanguageProvider({ children }) {
   const changeLanguage = async (newLang) => {
     setLanguage(newLang);
     localStorage.setItem("language", newLang);
-    // Se o usuário está logado, atualizar no servidor também
     if (user && token && updateLanguage) {
       await updateLanguage(newLang);
     }
@@ -306,4 +300,3 @@ export function LanguageProvider({ children }) {
 export function useLanguage() {
   return useContext(LanguageContext);
 }
-
